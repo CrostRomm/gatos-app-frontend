@@ -1,0 +1,40 @@
+<div class="text-center my-3">
+  <button type="submit" class="btn btn-info btn-lg" [routerLink]="['/gatos/gestion']">
+    <fa-icon [icon]="iconNew"></fa-icon>&nbsp;Registrar gato
+  </button>
+</div>
+
+<div *ngIf="!gatos" class="text-center my-8">
+  <h3>Cargando contenido...</h3>
+  <div class="spinner-border text-primary"></div>
+</div>
+
+<div *ngIf="gatos?.length == 0" class="alert alert-info">
+  No hay registros en la base de datos!
+</div>
+<div class="row text-center" *ngIf="gatos">
+  <div class="col-md-2 my-4 mx-4" style="width: 100px" *ngFor="let gato of gatos">
+    <div class="card inline-block">
+
+      <img *ngIf="gato?.foto" src="{{gato.foto}}"
+        class="img-thumbnail rounded img-fluid"style="width: 100%; height: 230px; cursor: pointer;">
+
+      <img *ngIf="!gato?.foto" src="https://cdn3.iconfinder.com/data/icons/faticons/32/user-01-256.png"
+        class="img-thumbnail rounded img-fluid"style="width: 100%; cursor: pointer;">
+
+        <div class="card-body">
+          <h3 class="card-title text-primary">{{gato.nombre | uppercase}}</h3>
+          <p class="card-text"><b>Raza: </b>{{gato.raza | lowercase}}</p>
+          <h4 class="card-text text-blue"><b>Edad: </b>{{gato.edad}}</h4>
+          <div class="btn-group">
+            <button type="button" class="btn btn-info" [routerLink]="['/gatos/gestion',gato.id]">
+              <fa-icon [icon]="iconEdit"></fa-icon>
+            </button>
+            <button type="button" class="btn btn-danger" (click)="borrarGato(gato)">
+              <fa-icon [icon]="iconDelete"></fa-icon>
+            </button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
