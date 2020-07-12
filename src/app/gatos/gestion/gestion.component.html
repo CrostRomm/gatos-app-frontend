@@ -1,0 +1,73 @@
+<app-modal *ngIf="modal"></app-modal>
+<div class="container my-4">
+  <div class="card bg-light text-black">
+    <div class="card-header">{{ titulo }}</div>
+    <div class="bard-body">
+
+    <form #gatoFormulario="ngForm">
+      <div class="form-group row">
+          <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="gato.nombre" name="nombre" minlength="3" maxlength="10" required #nombre="ngModel">
+            <div class="alert alert-danger" *ngIf="nombre.invalid && nombre.touched || nombre.invalid && gatoFormulario.submitted">
+            Nombre requerido.*
+          </div>
+          </div>
+      </div>
+
+      <div class="form-group row">
+          <label for="raza" class="col-form-label col-sm-2">Raza</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="gato.raza" name="raza" minlength="3" maxlength="10" required #raza="ngModel">
+            <div class="alert alert-danger" *ngIf="raza.invalid && raza.touched || raza.invalid && gatoFormulario.submitted">
+              raza requerida.*
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group row">
+          <label for="edad" class="col-form-label col-sm-2">Edad</label>
+          <div class="col-sm-6">
+            <input type="number" class="form-control" [(ngModel)]="gato.edad" name="gato" required #edad="ngModel">
+            <div class="alert alert-danger" *ngIf="edad.invalid && edad.touched || edad.invalid && gatoFormulario.submitted">
+              edad requerida.*
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group row text-center">
+        <div class="col-sm-6">
+          <img style="width: 190px; height: 190px;"
+            *ngIf="gato?.foto" src="{{gato.foto}}" alt="" class="img-thumbnail rounded img-fluid mx-3">
+          <img style="width: 190px; height: 190px;"
+             *ngIf="!gato?.foto" src="https://cdn3.iconfinder.com/data/icons/faticons/32/user-01-256.png"
+             alt="" class="img-thumbnail rounded img-fluid mx-3">
+             <button type="button" class="btn btn-primary" (click)="verFavoritos()">
+               <fa-icon [icon]="iconUpload"></fa-icon> &nbsp; Escoger foto
+             </button>
+        </div>
+      </div>
+      <hr/>
+      <div class="form-group row">
+        <div class="col-sm-6 text-center">
+
+          <button class="btn btn-primary" role="button" (click)='registrarGato(gatoFormulario)' *ngIf="!gato.id">
+            <fa-icon [icon]="iconAdd"></fa-icon>
+            &nbsp;Registrar gato
+          </button>
+
+          <button class="btn btn-primary" role="button" (click)='editarGato()' *ngIf="gato.id">
+            <fa-icon [icon]="iconEdit"></fa-icon>
+            &nbsp;Editar
+          </button>
+
+          <button class="btn btn-danger" role="button" routerLink="/gatos">
+            <fa-icon [icon]="iconCancel"></fa-icon>
+            &nbsp;Cancelar
+          </button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
