@@ -1,0 +1,16 @@
+<div *ngIf="!imagenes" class="text-center my-8">
+  <h3>Cargando contenido...</h3>
+  <div class="spinner-border text-primary"></div>
+</div>
+
+<div class="container" *ngIf="imagenes">
+  <div class="row">
+    <div class="col-md-2 my-4 mx-3" style="width:50%" *ngFor="let imagen of imagenes">
+      <img style="width: 190px; height: 190px;" *ngIf="imagen?.url" src="{{imagen.url}}" alt="" class="img-thumbnail rounded img-fluid">
+      <button type="submit" class="btn btn-primary btn-block" (click)="agregarFavorito(imagen)">
+        Favorito
+        <fa-icon [ngStyle]="{'color': tachadoFavorito(imagen)? 'white':'blue'}" [icon]="favoriteIcon"></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>
